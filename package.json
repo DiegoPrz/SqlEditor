@@ -1,0 +1,19 @@
+{
+  "name": "sqleditor",
+  "version": "0.0.1",
+  "description": "Sql editor for Oracle database",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/electron-app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Diego Perez",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.7",
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
+  }
+}
