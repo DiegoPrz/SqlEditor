@@ -7,12 +7,15 @@
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "npm run build && electron ./dist/electron-app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Diego Perez",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^24.0.18",
     "electron": "^6.0.7",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
   }
