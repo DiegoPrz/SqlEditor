@@ -146,4 +146,36 @@ describe('lines', () => {
         expect(dom.childNodes.length).toBe(3);
         expect(dom.childNodes.item(1).textContent).toBe('sample text');
     });
+
+    it('addText. Should add text on selected line', () => {
+        lines.addText('sample');
+
+        expect(lines.selectedLine().text).toBe('sample');
+    });
+
+    it('removeChar. Should remove the character in current possition', () => {
+        lines.addText('some sample text');
+        lines.removeChar();
+
+        expect(lines.selectedLine().text).toBe('some sample tex');
+    });
+
+    it('removeChar. Should remove the line if char is at the first possition', () => {
+        lines.add(new Line());
+        lines.removeChar();
+
+        expect(lines.count()).toBe(1);
+    });
+
+    it('removeChar. Should move text on current line to the previous line if at first possition', () => {
+        lines.add(getNewLine('text + '));
+        lines.add(getNewLine('Some text'));
+        lines.selectedLine().position = 0;
+
+        lines.removeChar();
+
+        expect(lines.count()).toBe(2);
+        expect(lines.selectedLine().text).toBe('text + Some text');
+        expect(lines.selectedLine().position).toBe(7);
+    });
 });

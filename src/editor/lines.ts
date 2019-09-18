@@ -13,6 +13,10 @@ export default class Lines {
         this.currentLine++;
     }
 
+    public addText(text: string) {
+        this.selectedLine().addText(text);
+    }
+
     public count(): number {
         return this.lines.length;
     }
@@ -20,6 +24,18 @@ export default class Lines {
     public remove(): void {
         this.lines.splice(this.currentLine);
         this.selectPreviousLine();
+    }
+
+    public removeChar(): void {
+        if (this.selectedLine().position === 0) {
+            const text = this.selectedLine().text;
+            this.remove();
+            const position = this.selectedLine().position;
+            this.addText(text);
+            this.selectedLine().position = position;
+        } else {
+            this.selectedLine().removeLetter();
+        }
     }
 
     public render(dom: HTMLElement): void {
