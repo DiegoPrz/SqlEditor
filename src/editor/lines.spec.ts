@@ -174,6 +174,15 @@ describe('lines', () => {
         expect(lines.selectedLine().text).toBe('some sample tex');
     });
 
+    it('removeChar. Should not remove if in position 0 of the first line', () => {
+        lines.add(getNewLine('some text'));
+        lines.selectPreviousLine();
+        lines.removeChar();
+
+        expect(lines.count()).toBe(2);
+        expect(lines.selectedLine().text).toBe('');
+    });
+
     it('removeChar. Should remove the line if char is at the first possition', () => {
         lines.add(new Line());
         lines.removeChar();

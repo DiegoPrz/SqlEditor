@@ -28,6 +28,9 @@ export default class Lines {
 
     public removeChar(): void {
         if (this.selectedLine().position === 0) {
+            if (this.currentLine === 0) {
+                return;
+            }
             const text = this.selectedLine().text;
             this.remove();
             const position = this.selectedLine().position;
