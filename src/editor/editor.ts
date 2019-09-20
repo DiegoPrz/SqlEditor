@@ -48,8 +48,6 @@ function logKey(e: KeyboardEvent): void {
         lines.selectNextLine();
     }
 
-    console.log(e.keyCode);
-
     timeSinceLastChange = new Date();
     cursor.setPosition(lines.selectedLine().position, lines.selectedLineIndex());
     renderLines();
