@@ -1,8 +1,28 @@
-.text-editor {
+#line-numbers {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 0px;
+    width: 50px;
+    text-align: center;
+    color: #bbb;
+}
+
+.line-number {
+    font-family: Consolas, "Courier New", monospace;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#text-editor {
+    position: absolute;
+    top: 5px;
+    left: 50px;
     width: 100%;
+}
+
+#editor {
+    position: absolute;
+    left: 1px;
 }
 
 .view-line {
@@ -22,9 +42,4 @@
     height: 19px;
     width: 1.6px;
     position: absolute;
-}
-
-#editor {
-    position: absolute;
-    left: 1px;
 }

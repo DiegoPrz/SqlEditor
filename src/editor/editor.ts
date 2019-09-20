@@ -4,6 +4,7 @@ import Lines from './lines';
 
 const cursor = new Cursor(document.getElementById('cursor'));
 const editor = document.getElementById('editor');
+const lineNumbers = document.getElementById('line-numbers');
 const lines = new Lines(new Line());
 let timeSinceLastChange = new Date();
 
@@ -15,6 +16,8 @@ window.setInterval(() => {
 }, 500);
 
 document.addEventListener('keydown', logKey);
+
+renderLines();
 
 function logKey(e: KeyboardEvent): void {
     e.preventDefault();
@@ -48,6 +51,9 @@ function logKey(e: KeyboardEvent): void {
 }
 
 function renderLines(): void {
+    lineNumbers.innerHTML = '';
+    lines.renderLineNumbers(lineNumbers);
+
     editor.innerHTML = '';
     lines.render(editor);
 }

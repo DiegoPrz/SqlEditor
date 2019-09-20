@@ -147,6 +147,18 @@ describe('lines', () => {
         expect(dom.childNodes.item(1).textContent).toBe('sample text');
     });
 
+    it('renderLineNumbers. HTMLElement should have all the line numbers on it', () => {
+        lines.add(getNewLine('sample text'));
+        lines.add(new Line());
+
+        const dom = document.createElement('div');
+
+        lines.renderLineNumbers(dom);
+
+        expect(dom.childNodes.length).toBe(3);
+        expect(dom.childNodes.item(1).textContent).toBe('2');
+    });
+
     it('addText. Should add text on selected line', () => {
         lines.addText('sample');
 

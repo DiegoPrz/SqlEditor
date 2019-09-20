@@ -4,6 +4,8 @@ export default class Lines {
     private currentLine = -1;
     private lines: Line[] = [];
 
+    // TODO: All lines after the current one are deleted when one line is deleted
+
     public constructor(line: Line) {
         this.add(line);
     }
@@ -44,6 +46,12 @@ export default class Lines {
         });
     }
 
+    public renderLineNumbers(dom: HTMLElement): void {
+        for (let i = 0; i < this.lines.length; i++) {
+            dom.append(this.lineNumber(i + 1, i === this.currentLine));
+        }
+    }
+
     public selectedLine(): Line {
         return this.lines[this.currentLine];
     }
@@ -82,5 +90,15 @@ export default class Lines {
         }
 
         this.currentLine--;
+    }
+
+    private lineNumber(line: number, currentLine: boolean): HTMLElement {
+        const lineNumber = document.createElement('div');
+        lineNumber.classList.add('view-line');
+        lineNumber.innerHTML = line.toString();
+        if (currentLine) {
+            lineNumber.style.color = '#111';
+        }
+        return lineNumber;
     }
 }
