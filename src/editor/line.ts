@@ -44,7 +44,7 @@ export default class Line {
     public render(): HTMLDivElement {
         const line = document.createElement('div');
         line.classList.add('view-line');
-        line.innerHTML = this.letters;
+        line.innerHTML = this.letters.replace(/\s/g, '&nbsp;');
         return line;
     }
 

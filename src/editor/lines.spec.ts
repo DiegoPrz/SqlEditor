@@ -143,8 +143,10 @@ describe('lines', () => {
 
         lines.render(dom);
 
+        const line = dom.childNodes[1] as HTMLElement;
+
         expect(dom.childNodes.length).toBe(3);
-        expect(dom.childNodes.item(1).textContent).toBe('sample text');
+        expect(line.innerHTML).toEqual('sample&nbsp;text');
     });
 
     it('renderLineNumbers. HTMLElement should have all the line numbers on it', () => {
