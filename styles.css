@@ -1,0 +1,30 @@
+.text-editor {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100%;
+}
+
+.view-line {
+    height: 19px;
+    font-family: Consolas, "Courier New", monospace;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0px;
+}
+
+#cursor {
+    resize: none;
+    height: 19px;
+    border-color: #ffcc00;
+    background-color: #ffcc00;
+    height: 19px;
+    width: 1.6px;
+    position: absolute;
+}
+
+#editor {
+    position: absolute;
+    left: 1px;
+}
