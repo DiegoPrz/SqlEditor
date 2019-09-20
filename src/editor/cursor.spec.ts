@@ -29,4 +29,10 @@ describe('cursor', () => {
 
         expect(dom.style.visibility).not.toEqual(currentState);
     });
+
+    it('setVisible should change dom style to inherit', () => {
+        cursor.setVisible();
+
+        expect(dom.style.visibility).toEqual('inherit');
+    });
 });

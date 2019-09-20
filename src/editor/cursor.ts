@@ -6,8 +6,12 @@ export default class Cursor {
     }
 
     public setPosition(x: number, y: number): void {
-        this.dom.style.top = `${19 * y + 5}px`;
-        this.dom.style.left = `${x * 8 + 7 - x / 4}px`;
+        this.dom.style.top  = `${y * 19}px`;
+        this.dom.style.left = `${x * 7.7}px`;
+    }
+
+    public setVisible(): void {
+        this.dom.style.visibility = 'inherit';
     }
 
     public updateVisibility(): void {
