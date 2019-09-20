@@ -23,11 +23,25 @@ describe('cursor', () => {
         expect(dom.style.top).not.toEqual(y);
     });
 
-    it('updateVisibility should change visibility on dom element', () => {
+    it('cursor visibility should be inherit by default', () => {
+        const currentState = dom.style.visibility;
+
+        expect(dom.style.visibility).toEqual('inherit');
+    });
+
+    it('updateVisibility should change visibility to inherit when hidden', () => {
+        const currentState = dom.style.visibility;
+        cursor.updateVisibility();
+        cursor.updateVisibility();
+
+        expect(dom.style.visibility).toEqual('inherit');
+    });
+
+    it('updateVisibility should change visibility to hidden when inherit', () => {
         const currentState = dom.style.visibility;
         cursor.updateVisibility();
 
-        expect(dom.style.visibility).not.toEqual(currentState);
+        expect(dom.style.visibility).toEqual('hidden');
     });
 
     it('setVisible should change dom style to inherit', () => {

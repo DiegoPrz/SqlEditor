@@ -3,6 +3,7 @@ export default class Cursor {
 
     constructor(dom: HTMLElement) {
         this.dom = dom;
+        this.setVisible();
     }
 
     public setPosition(x: number, y: number): void {
