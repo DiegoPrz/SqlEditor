@@ -26,6 +26,9 @@ function logKey(e: KeyboardEvent): void {
     if (e.key.length === 1) {
         lines.addText(e.key);
     }
+    if (e.keyCode === 9) {
+        lines.addText('    ');
+    }
     if (e.keyCode === 13) {
         lines.add(new Line());
     }
@@ -44,6 +47,8 @@ function logKey(e: KeyboardEvent): void {
     if (e.keyCode === 40) {
         lines.selectNextLine();
     }
+
+    console.log(e.keyCode);
 
     timeSinceLastChange = new Date();
     cursor.setPosition(lines.selectedLine().position, lines.selectedLineIndex());
