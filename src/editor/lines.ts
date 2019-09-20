@@ -4,8 +4,6 @@ export default class Lines {
     private currentLine = -1;
     private lines: Line[] = [];
 
-    // TODO: All lines after the current one are deleted when one line is deleted
-
     public constructor(line: Line) {
         this.add(line);
     }
@@ -24,7 +22,7 @@ export default class Lines {
     }
 
     public remove(): void {
-        this.lines.splice(this.currentLine);
+        this.lines.splice(this.currentLine, 1);
         this.selectPreviousLine();
     }
 

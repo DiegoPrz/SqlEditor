@@ -41,7 +41,7 @@ describe('lines', () => {
         lines.selectPreviousLine();
         lines.remove();
 
-        expect(lines.count()).toBe(2);
+        expect(lines.count()).toBe(3);
         expect(lines.selectedLine().text).toBe('sample text');
     });
 
