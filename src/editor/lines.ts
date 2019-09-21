@@ -15,6 +15,7 @@ export default class Lines {
         const text = this.selectedLine().split();
 
         line.addText(text);
+        line.position = 0;
         this.lines.push(line);
         this.currentLine++;
     }

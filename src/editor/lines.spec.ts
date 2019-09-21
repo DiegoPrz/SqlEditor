@@ -8,8 +8,9 @@ describe('lines', () => {
         lines = new Lines(new Line());
     });
 
-    function getNewLine(testValue: string): Line {
+    function addNewLine(testValue: string): Line {
         const line = new Line();
+        lines.add(line);
         line.addText(testValue);
 
         return line;
@@ -30,12 +31,20 @@ describe('lines', () => {
     });
 
     it('add. Text after current position should be moved to next line', () => {
-        lines.add(getNewLine('Some sample text'));
+        addNewLine('Some sample text');
         lines.selectedLine().position = 12;
 
         lines.add(new Line());
 
         expect(lines.selectedLine().text).toBe('text');
+    });
+
+    it('add. Position should be at char 0 when adding a new line', () => {
+        lines.addText('Some sample text');
+        lines.selectedLine().position = 12;
+        lines.add(new Line());
+
+        expect(lines.selectedLine().position).toBe(0);
     });
 
     it('count. Should be one after adding and removing a line', () => {
@@ -47,7 +56,7 @@ describe('lines', () => {
     });
 
     it('remove. Should remove the current line and select the previous one', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.add(new Line());
         lines.add(new Line());
 
@@ -55,6 +64,7 @@ describe('lines', () => {
         lines.remove();
 
         expect(lines.count()).toBe(3);
+        expect(lines.selectedLineIndex()).toBe(1);
         expect(lines.selectedLine().text).toBe('sample text');
     });
 
@@ -115,7 +125,7 @@ describe('lines', () => {
 
     it('selectNextLine. Should select the first character on next line', () => {
         lines.add(new Line());
-        lines.add(getNewLine('some sample text'));
+        addNewLine('some sample text');
 
         lines.selectPreviousLine();
         lines.selectNextLine();
@@ -132,7 +142,7 @@ describe('lines', () => {
     });
 
     it('selectNextLine. If on last line select the last position', () => {
-        lines.add(getNewLine('some sample text'));
+        addNewLine('some sample text');
         lines.selectPreviousChar();
         lines.selectPreviousChar();
         lines.selectPreviousChar();
@@ -144,13 +154,13 @@ describe('lines', () => {
     });
 
     it('selectedLine. Should return selected line', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
 
         expect(lines.selectedLine().text).toBe('sample text');
     });
 
     it('selectPreviousChar. Should select previous char on selected line', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.selectPreviousChar();
 
         expect(lines.selectedLineIndex()).toBe(1);
@@ -158,7 +168,7 @@ describe('lines', () => {
     });
 
     it('selectPreviousChar. Should select last char on previous line if the current line is at the begining', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.add(new Line());
 
         lines.selectPreviousChar();
@@ -168,7 +178,7 @@ describe('lines', () => {
     });
 
     it('selectNextChar. Should select next char on selected line', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.selectPreviousChar();
         lines.selectNextChar();
 
@@ -177,7 +187,7 @@ describe('lines', () => {
     });
 
     it('selectNextChar. Should select first char on next line if the current line is at the end', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.add(new Line());
 
         lines.selectPreviousChar();
@@ -188,7 +198,7 @@ describe('lines', () => {
     });
 
     it('render. HTMLElement should have all the lines on it', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.add(new Line());
 
         const dom = document.createElement('div');
@@ -202,7 +212,7 @@ describe('lines', () => {
     });
 
     it('renderLineNumbers. HTMLElement should have all the line numbers on it', () => {
-        lines.add(getNewLine('sample text'));
+        addNewLine('sample text');
         lines.add(new Line());
 
         const dom = document.createElement('div');
@@ -227,7 +237,7 @@ describe('lines', () => {
     });
 
     it('removeChar. Should not remove if in position 0 of the first line', () => {
-        lines.add(getNewLine('some text'));
+        addNewLine('some text');
         lines.selectPreviousLine();
         lines.removeChar();
 
@@ -243,8 +253,8 @@ describe('lines', () => {
     });
 
     it('removeChar. Should move text on current line to the previous line if at first possition', () => {
-        lines.add(getNewLine('text + '));
-        lines.add(getNewLine('Some text'));
+        addNewLine('text + ');
+        addNewLine('Some text');
         lines.selectedLine().position = 0;
 
         lines.removeChar();
