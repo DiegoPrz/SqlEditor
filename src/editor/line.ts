@@ -49,8 +49,8 @@ export default class Line {
     }
 
     public split(): string {
-        const text = this.letters.slice(this.position);
-        this.letters = this.letters.slice(0, this.position);
+        const text = this.textAfterIndex();
+        this.letters = this.textBeforeIndex();
 
         return text;
     }
