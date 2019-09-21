@@ -29,6 +29,15 @@ describe('lines', () => {
         expect(lines.count()).toBe(2);
     });
 
+    it('add. Text after current position should be moved to next line', () => {
+        lines.add(getNewLine('Some sample text'));
+        lines.selectedLine().position = 12;
+
+        lines.add(new Line());
+
+        expect(lines.selectedLine().text).toBe('text');
+    });
+
     it('count. Should be one after adding and removing a line', () => {
         lines.add(new Line());
         lines.remove();

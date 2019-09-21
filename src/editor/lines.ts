@@ -1,14 +1,20 @@
 import Line from './line';
 
 export default class Lines {
-    private currentLine = -1;
+    private currentLine = 0;
     private lines: Line[] = [];
 
+    // TODO: When selecting next line position 0 should be selected
+    // TODO : When selecting previous line position should be the last position
+
     public constructor(line: Line) {
-        this.add(line);
+        this.lines.push(line);
     }
 
     public add(line: Line) {
+        const text = this.selectedLine().split();
+
+        line.addText(text);
         this.lines.push(line);
         this.currentLine++;
     }
