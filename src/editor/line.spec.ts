@@ -62,6 +62,16 @@ describe('line', () => {
         }).toThrow();
     });
 
+    it('split. Should keep text just until the position and return the rest of the line', () => {
+        line.addText('Some sample text');
+        line.position = 12;
+
+        const textAfterPosition = line.split();
+
+        expect(textAfterPosition).toBe('text');
+        expect(line.text).toBe('Some sample ');
+    });
+
     it('removeLetter. Should remove last letter', () => {
         line.addText('some text');
         line.removeLetter();

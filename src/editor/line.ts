@@ -48,6 +48,13 @@ export default class Line {
         return line;
     }
 
+    public split(): string {
+        const text = this.letters.slice(this.position);
+        this.letters = this.letters.slice(0, this.position);
+
+        return text;
+    }
+
     private textAfterIndex(): string {
         return this.letters.slice(this.index, this.letters.length);
     }
