@@ -92,15 +92,35 @@ describe('lines', () => {
         expect(lines.selectedLine().position).toBe(0);
     });
 
-    it('selectNextLine. Should select the next line', () => {
+    it('selectedPreviousLine. Last character of previuos line should be selected', () => {
+        lines.addText('some text');
         lines.add(new Line());
+        lines.selectPreviousLine();
+        lines.selectedLine().position = 3;
+        lines.selectNextLine();
+        lines.selectPreviousLine();
+
+        expect(lines.selectedLine().position).toBe(9);
+    });
+
+    it('selectNextLine. Should select the next line', () => {
         lines.add(new Line());
         lines.add(new Line());
 
         lines.selectPreviousLine();
         lines.selectNextLine();
 
-        expect(lines.selectedLineIndex()).toBe(3);
+        expect(lines.selectedLineIndex()).toBe(2);
+    });
+
+    it('selectNextLine. Should select the first character on next line', () => {
+        lines.add(new Line());
+        lines.add(getNewLine('some sample text'));
+
+        lines.selectPreviousLine();
+        lines.selectNextLine();
+
+        expect(lines.selectedLine().position).toBe(0);
     });
 
     it('selectNextLine. Selected line should not be greater than the number of lines', () => {

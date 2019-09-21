@@ -82,6 +82,7 @@ export default class Lines {
         }
 
         this.currentLine++;
+        this.selectedLine().position = 0;
     }
 
     public selectPreviousChar(): void {
@@ -99,6 +100,7 @@ export default class Lines {
         }
 
         this.currentLine--;
+        this.selectedLine().position = this.selectedLine().numberOfLetters();
     }
 
     private lineNumber(line: number, currentLine: boolean): HTMLElement {
