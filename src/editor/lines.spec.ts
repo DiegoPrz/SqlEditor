@@ -15,6 +15,10 @@ describe('lines', () => {
         return line;
     }
 
+    it('lines should be defined', () => {
+        expect(lines).toBeDefined();
+    });
+
     it('count. Should have a line when created', () => {
         expect(lines.count()).toBe(1);
     });

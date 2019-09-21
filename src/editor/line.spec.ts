@@ -7,6 +7,10 @@ describe('line', () => {
         line = new Line();
     });
 
+    it('line should be defined', () => {
+        expect(line).toBeDefined();
+    });
+
     it('text. should be empty when created', () => {
         expect(line.text).toBe('');
     });
