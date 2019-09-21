@@ -23,7 +23,7 @@ describe('lines', () => {
         expect(lines.count()).toBe(1);
     });
 
-    it('count. Should be two after adding a line', () => {
+    it('count. Should have two lines after adding a line', () => {
         lines.add(new Line());
 
         expect(lines.count()).toBe(2);
@@ -76,6 +76,13 @@ describe('lines', () => {
         expect(lines.selectedLineIndex()).toBe(0);
     });
 
+    it('selectedPreviousLine. If on first line select position 0', () => {
+        lines.addText('some text');
+        lines.selectPreviousLine();
+
+        expect(lines.selectedLine().position).toBe(0);
+    });
+
     it('selectNextLine. Should select the next line', () => {
         lines.add(new Line());
         lines.add(new Line());
@@ -93,6 +100,18 @@ describe('lines', () => {
         lines.selectNextLine();
 
         expect(lines.selectedLineIndex()).toBe(1);
+    });
+
+    it('selectNextLine. If on last line select the last position', () => {
+        lines.add(getNewLine('some sample text'));
+        lines.selectPreviousChar();
+        lines.selectPreviousChar();
+        lines.selectPreviousChar();
+
+        lines.selectNextLine();
+
+        expect(lines.selectedLine().position).toBe(16);
+
     });
 
     it('selectedLine. Should return selected line', () => {

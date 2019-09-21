@@ -71,6 +71,7 @@ export default class Lines {
 
     public selectNextLine(): void {
         if (this.currentLine === this.lines.length - 1) {
+            this.selectedLine().position = this.selectedLine().numberOfLetters();
             return;
         }
 
@@ -87,6 +88,7 @@ export default class Lines {
 
     public selectPreviousLine(): void {
         if (this.currentLine === 0) {
+            this.selectedLine().position = 0;
             return;
         }
 
