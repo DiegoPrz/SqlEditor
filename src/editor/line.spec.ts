@@ -73,28 +73,56 @@ describe('line', () => {
         expect(line.text).toBe('Some sample ');
     });
 
-    it('removeLetter. Should remove last letter', () => {
-        line.addText('some text');
-        line.removeText();
-
-        expect(line.text).toBe('some tex');
-    });
-
-    it('removeLetter. Should remove letter in position', () => {
+    it('removeText. Should remove char before index by default', () => {
         line.addText('some text');
         line.index = 5;
         line.removeText();
-        line.removeText();
 
-        expect(line.text).toBe('somtext');
+        expect(line.text).toBe('sometext');
     });
 
-    it('removeLetter. Should remove anything when index = 0', () => {
+    it('removeText. can remove multiple chars at once', () => {
+        line.addText('some text');
+        line.removeText(-2);
+
+        expect(line.text).toBe('some te');
+        expect(line.index).toBe(7);
+    });
+
+    it('removeText. cannot remove more chars than avaliable before index', () => {
+        line.addText('some text');
+        line.index = 1;
+
+        expect(() => {
+            line.removeText(-2);
+        }).toThrow();
+    });
+
+    it('removeText. Should remove chars after index', () => {
+        line.addText('some text');
+        line.index = 4;
+        line.removeText(4);
+
+        expect(line.text).toBe('somet');
+        expect(line.index).toBe(4);
+    });
+
+    it('removeText. Should remove chars even if index is at 0', () => {
         line.addText('some text');
         line.index = 0;
-        line.removeText();
+        line.removeText(5);
 
-        expect(line.text).toBe('some text');
+        expect(line.text).toBe('text');
+        expect(line.index).toBe(0);
+    });
+
+    it('removeText. cannot remove more chars than avaliable after index', () => {
+        line.addText('some text');
+        line.index = 8;
+
+        expect(() => {
+            line.removeText(2);
+        }).toThrow();
     });
 
     it('render. Should have view-line class', () => {

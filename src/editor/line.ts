@@ -35,10 +35,14 @@ export default class Line {
         this.index += text.length;
     }
 
-    public removeText(): void {
-        this._text = this.textBeforeIndex().slice(0, -1) + this.textAfterIndex();
+    public removeText(end: number = -1): void {
+        if (end < 0) {
+            this.removeTextBeforeIndex(end);
+        }
 
-        this._index--;
+        if (end > 0) {
+            this.removeTextAfterIndex(end);
+        }
     }
 
     public render(): HTMLDivElement {
@@ -53,6 +57,23 @@ export default class Line {
         this._text = this.textBeforeIndex();
 
         return text;
+    }
+
+    private removeTextAfterIndex(numberOfChar: number): void {
+        if (this.index + numberOfChar > this.length) {
+            throw new Error('Cannot remove more letters than available');
+        }
+
+        this._text = this.textBeforeIndex() + this.textAfterIndex().slice(numberOfChar);
+    }
+
+    private removeTextBeforeIndex(numberOfChar: number): void {
+        if (this.index + numberOfChar < 0) {
+            throw new Error('Cannot remove more letters than available');
+        }
+
+        this._text = this.textBeforeIndex().slice(0, numberOfChar) + this.textAfterIndex();
+        this.index += numberOfChar;
     }
 
     private textAfterIndex(): string {
