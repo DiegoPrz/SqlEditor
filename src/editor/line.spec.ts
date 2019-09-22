@@ -15,56 +15,57 @@ describe('line', () => {
         expect(line.text).toBe('');
     });
 
-    it('addText. should add text at the end', () => {
-        line.addText('test');
-        expect(line.text).toBe('test');
+    it('index. should be 0 when created', () => {
+        expect(line.index).toBe(0);
     });
 
-    it('addText. second added text should be added after first added text', () => {
+    it('addText. Text should be added at the end by default', () => {
         line.addText('Some text');
         line.addText('. After the other');
 
         expect(line.text).toBe('Some text. After the other');
+        expect(line.index).toBe(26);
     });
 
-    it('Position. Added text should be inserted in the right position', () => {
+    it('index. should be setted correctly', () => {
         line.addText('some text');
-        line.position = 5;
+        line.index = 3;
+
+        expect(line.index).toBe(3);
+    });
+
+    it('addText. Text should be added at the index position', () => {
+        line.addText('some text');
+        line.index = 5;
         line.addText('sample ');
 
         expect(line.text).toBe('some sample text');
+        expect(line.index).toBe(12);
     });
 
-    it('Set Position. Position should be setted correctly', () => {
+    it('index. Position can be setted multiple times', () => {
         line.addText('some text');
-        line.position = 3;
+        line.index = 2;
+        line.index = 9;
 
-        expect(line.position).toBe(3);
+        expect(line.index).toBe(9);
     });
 
-    it('Set Position. Position can be setted multiple times', () => {
-        line.addText('some text');
-        line.position = 2;
-        line.position = 9;
-
-        expect(line.position).toBe(9);
-    });
-
-    it('Set Position. Position should not be lower than 0', () => {
+    it('index. Should not be lower than 0', () => {
         expect(() => {
-            line.position = -1;
+            line.index = -1;
         }).toThrow();
     });
 
-    it('Set Position. Position should not be greater than the number of letters', () => {
+    it('index. Should not be greater than the length', () => {
         expect(() => {
-            line.position = 3;
+            line.index = 3;
         }).toThrow();
     });
 
     it('split. Should keep text just until the position and return the rest of the line', () => {
         line.addText('Some sample text');
-        line.position = 12;
+        line.index = 12;
 
         const textAfterPosition = line.split();
 
@@ -74,24 +75,24 @@ describe('line', () => {
 
     it('removeLetter. Should remove last letter', () => {
         line.addText('some text');
-        line.removeLetter();
+        line.removeText();
 
         expect(line.text).toBe('some tex');
     });
 
     it('removeLetter. Should remove letter in position', () => {
         line.addText('some text');
-        line.position = 5;
-        line.removeLetter();
-        line.removeLetter();
+        line.index = 5;
+        line.removeText();
+        line.removeText();
 
         expect(line.text).toBe('somtext');
     });
 
     it('removeLetter. Should remove anything when index = 0', () => {
         line.addText('some text');
-        line.position = 0;
-        line.removeLetter();
+        line.index = 0;
+        line.removeText();
 
         expect(line.text).toBe('some text');
     });

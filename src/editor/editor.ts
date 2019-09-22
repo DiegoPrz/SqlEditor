@@ -49,7 +49,7 @@ function logKey(e: KeyboardEvent): void {
     }
 
     timeSinceLastChange = new Date();
-    cursor.setPosition(lines.selectedLine().position, lines.selectedLineIndex());
+    cursor.setPosition(lines.selectedLine().index, lines.selectedLineIndex());
     renderLines();
 }
 

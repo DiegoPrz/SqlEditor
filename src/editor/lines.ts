@@ -12,7 +12,7 @@ export default class Lines {
         const text = this.selectedLine().split();
 
         line.addText(text);
-        line.position = 0;
+        line.index = 0;
         this._lines.push(line);
         this._index++;
     }
@@ -31,17 +31,17 @@ export default class Lines {
     }
 
     public removeChar(): void {
-        if (this.selectedLine().position === 0) {
+        if (this.selectedLine().index === 0) {
             if (this._index === 0) {
                 return;
             }
             const text = this.selectedLine().text;
             this.remove();
-            const position = this.selectedLine().position;
+            const position = this.selectedLine().index;
             this.addText(text);
-            this.selectedLine().position = position;
+            this.selectedLine().index = position;
         } else {
-            this.selectedLine().removeLetter();
+            this.selectedLine().removeText();
         }
     }
 
@@ -66,39 +66,39 @@ export default class Lines {
     }
 
     public selectNextChar(): void {
-        if (this.selectedLine().position === this.selectedLine().numberOfLetters()) {
+        if (this.selectedLine().index === this.selectedLine().length) {
             this.selectNextLine();
         } else {
-            this.selectedLine().position++;
+            this.selectedLine().index++;
         }
     }
 
     public selectNextLine(): void {
         if (this._index === this._lines.length - 1) {
-            this.selectedLine().position = this.selectedLine().numberOfLetters();
+            this.selectedLine().index = this.selectedLine().length;
             return;
         }
 
         this._index++;
-        this.selectedLine().position = 0;
+        this.selectedLine().index = 0;
     }
 
     public selectPreviousChar(): void {
-        if (this.selectedLine().position === 0) {
+        if (this.selectedLine().index === 0) {
             this.selectPreviousLine();
         } else {
-            this.selectedLine().position--;
+            this.selectedLine().index--;
         }
     }
 
     public selectPreviousLine(): void {
         if (this._index === 0) {
-            this.selectedLine().position = 0;
+            this.selectedLine().index = 0;
             return;
         }
 
         this._index--;
-        this.selectedLine().position = this.selectedLine().numberOfLetters();
+        this.selectedLine().index = this.selectedLine().length;
     }
 
     private lineNumber(line: number, currentLine: boolean): HTMLElement {

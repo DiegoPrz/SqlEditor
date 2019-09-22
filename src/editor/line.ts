@@ -2,24 +2,28 @@ export default class Line {
     private _index = 0;
     private _text = '';
 
-    get text(): string {
-        return this._text;
-    }
-
-    get position(): number {
+    get index(): number {
         return this._index;
     }
 
-    set position(position: number) {
-        if (position < 0) {
+    set index(index: number) {
+        if (index < 0) {
             throw new Error('position should be greater or equal than 0');
         }
 
-        if (position > this.numberOfLetters()) {
+        if (index > this.length) {
             throw new Error('position should not be greater than the number of letters');
         }
 
-        this._index = position;
+        this._index = index;
+    }
+
+    get length(): number {
+        return this._text.length;
+    }
+
+    get text(): string {
+        return this._text;
     }
 
     public addText(text: string): void {
@@ -28,14 +32,10 @@ export default class Line {
             text +
             this.textAfterIndex();
 
-        this._index += text.length;
+        this.index += text.length;
     }
 
-    public numberOfLetters(): number {
-        return this._text.length;
-    }
-
-    public removeLetter(): void {
+    public removeText(): void {
         this._text = this.textBeforeIndex().slice(0, -1) + this.textAfterIndex();
 
         this._index--;
