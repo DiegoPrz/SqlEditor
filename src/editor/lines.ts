@@ -1,14 +1,11 @@
 import Line from './line';
 
 export default class Lines {
-    private currentLine = 0;
-    private lines: Line[] = [];
-
-    // TODO: When selecting next line position 0 should be selected
-    // TODO : When selecting previous line position should be the last position
+    private _index = 0;
+    private _lines: Line[] = [];
 
     public constructor(line: Line) {
-        this.lines.push(line);
+        this._lines.push(line);
     }
 
     public add(line: Line) {
@@ -16,8 +13,8 @@ export default class Lines {
 
         line.addText(text);
         line.position = 0;
-        this.lines.push(line);
-        this.currentLine++;
+        this._lines.push(line);
+        this._index++;
     }
 
     public addText(text: string) {
@@ -25,17 +22,17 @@ export default class Lines {
     }
 
     public count(): number {
-        return this.lines.length;
+        return this._lines.length;
     }
 
     public remove(): void {
-        this.lines.splice(this.currentLine, 1);
+        this._lines.splice(this._index, 1);
         this.selectPreviousLine();
     }
 
     public removeChar(): void {
         if (this.selectedLine().position === 0) {
-            if (this.currentLine === 0) {
+            if (this._index === 0) {
                 return;
             }
             const text = this.selectedLine().text;
@@ -49,23 +46,23 @@ export default class Lines {
     }
 
     public render(dom: HTMLElement): void {
-        this.lines.forEach((line: Line) => {
+        this._lines.forEach((line: Line) => {
             dom.append(line.render());
         });
     }
 
     public renderLineNumbers(dom: HTMLElement): void {
-        for (let i = 0; i < this.lines.length; i++) {
-            dom.append(this.lineNumber(i + 1, i === this.currentLine));
+        for (let i = 0; i < this._lines.length; i++) {
+            dom.append(this.lineNumber(i + 1, i === this._index));
         }
     }
 
     public selectedLine(): Line {
-        return this.lines[this.currentLine];
+        return this._lines[this._index];
     }
 
     public selectedLineIndex(): number {
-        return this.currentLine;
+        return this._index;
     }
 
     public selectNextChar(): void {
@@ -77,12 +74,12 @@ export default class Lines {
     }
 
     public selectNextLine(): void {
-        if (this.currentLine === this.lines.length - 1) {
+        if (this._index === this._lines.length - 1) {
             this.selectedLine().position = this.selectedLine().numberOfLetters();
             return;
         }
 
-        this.currentLine++;
+        this._index++;
         this.selectedLine().position = 0;
     }
 
@@ -95,12 +92,12 @@ export default class Lines {
     }
 
     public selectPreviousLine(): void {
-        if (this.currentLine === 0) {
+        if (this._index === 0) {
             this.selectedLine().position = 0;
             return;
         }
 
-        this.currentLine--;
+        this._index--;
         this.selectedLine().position = this.selectedLine().numberOfLetters();
     }
 

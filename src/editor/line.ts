@@ -1,13 +1,13 @@
 export default class Line {
-    private index = 0;
-    private letters = '';
+    private _index = 0;
+    private _text = '';
 
     get text(): string {
-        return this.letters;
+        return this._text;
     }
 
     get position(): number {
-        return this.index;
+        return this._index;
     }
 
     set position(position: number) {
@@ -19,47 +19,47 @@ export default class Line {
             throw new Error('position should not be greater than the number of letters');
         }
 
-        this.index = position;
+        this._index = position;
     }
 
     public addText(text: string): void {
-        this.letters =
+        this._text =
             this.textBeforeIndex() +
             text +
             this.textAfterIndex();
 
-        this.index += text.length;
+        this._index += text.length;
     }
 
     public numberOfLetters(): number {
-        return this.letters.length;
+        return this._text.length;
     }
 
     public removeLetter(): void {
-        this.letters = this.textBeforeIndex().slice(0, -1) + this.textAfterIndex();
+        this._text = this.textBeforeIndex().slice(0, -1) + this.textAfterIndex();
 
-        this.index--;
+        this._index--;
     }
 
     public render(): HTMLDivElement {
         const line = document.createElement('div');
         line.classList.add('view-line');
-        line.innerHTML = this.letters.replace(/\s/g, '&nbsp;');
+        line.innerHTML = this._text.replace(/\s/g, '&nbsp;');
         return line;
     }
 
     public split(): string {
         const text = this.textAfterIndex();
-        this.letters = this.textBeforeIndex();
+        this._text = this.textBeforeIndex();
 
         return text;
     }
 
     private textAfterIndex(): string {
-        return this.letters.slice(this.index, this.letters.length);
+        return this._text.slice(this._index, this._text.length);
     }
 
     private textBeforeIndex(): string {
-        return this.letters.slice(0, this.index);
+        return this._text.slice(0, this._index);
     }
 }

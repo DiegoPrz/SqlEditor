@@ -17,7 +17,8 @@
             ]
         },
         "member-ordering": [
-            true, {
+            true,
+            {
                 "order": [
                     "public-static-field",
                     "public-instance-field",
@@ -28,17 +29,28 @@
                     "public-instance-method",
                     "protected-instance-method",
                     "private-instance-method"
-                  ],
-                  "alphabetize": true                
+                ],
+                "alphabetize": true
             }
         ],
         "new-parens": true,
         "no-arg": true,
         "no-bitwise": true,
         "no-console": false,
-        "quotemark": [true, "single"],
+        "quotemark": [
+            true,
+            "single"
+        ],
         "no-conditional-assignment": true,
-        "no-consecutive-blank-lines": false
+        "no-consecutive-blank-lines": false,
+        "variable-name": {
+            "options": [
+                "ban-keywords",
+                "check-format",
+                "allow-leading-underscore",
+                "allow-pascal-case"
+            ]
+        }
     },
     "rulesDirectory": []
 }
