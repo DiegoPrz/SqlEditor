@@ -12,6 +12,10 @@ export default class Lines {
         return this._index;
     }
 
+    get lines(): Line[] {
+        return this._lines;
+    }
+
     public constructor(line: Line) {
         this._lines.push(line);
     }
@@ -42,18 +46,6 @@ export default class Lines {
             this.joinLines(this.index, this.index + 1);
         } else {
             this.selectedLine().removeText(end);
-        }
-    }
-
-    public render(dom: HTMLElement): void {
-        this._lines.forEach((line: Line) => {
-            dom.append(line.render());
-        });
-    }
-
-    public renderLineNumbers(dom: HTMLElement): void {
-        for (let i = 0; i < this._lines.length; i++) {
-            dom.append(this.lineNumber(i + 1, i === this._index));
         }
     }
 
@@ -120,15 +112,5 @@ export default class Lines {
         const text = this.selectedLine().text;
         this.remove();
         this.addText(text, false);
-    }
-
-    private lineNumber(line: number, currentLine: boolean): HTMLElement {
-        const lineNumber = document.createElement('div');
-        lineNumber.classList.add('view-line');
-        lineNumber.innerHTML = line.toString();
-        if (currentLine) {
-            lineNumber.style.color = '#111';
-        }
-        return lineNumber;
     }
 }

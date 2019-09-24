@@ -30,6 +30,13 @@ describe('lines', () => {
         expect(lines.count).toBe(2);
     });
 
+    it('lines. Should return the array of lines', () => {
+        const line = addNewLine('some sample text');
+
+        expect(lines.lines.length).toBe(2);
+        expect(lines.lines[1]).toBe(line);
+    });
+
     it('add. Text after current position should be moved to next line', () => {
         addNewLine('Some sample text');
         lines.selectedLine().index = 12;
@@ -195,32 +202,6 @@ describe('lines', () => {
 
         expect(lines.index).toBe(2);
         expect(lines.selectedLine().index).toBe(0);
-    });
-
-    it('render. HTMLElement should have all the lines on it', () => {
-        addNewLine('sample text');
-        lines.add(new Line());
-
-        const dom = document.createElement('div');
-
-        lines.render(dom);
-
-        const line = dom.childNodes[1] as HTMLElement;
-
-        expect(dom.childNodes.length).toBe(3);
-        expect(line.innerHTML).toEqual('sample&nbsp;text');
-    });
-
-    it('renderLineNumbers. HTMLElement should have all the line numbers on it', () => {
-        addNewLine('sample text');
-        lines.add(new Line());
-
-        const dom = document.createElement('div');
-
-        lines.renderLineNumbers(dom);
-
-        expect(dom.childNodes.length).toBe(3);
-        expect(dom.childNodes.item(1).textContent).toBe('2');
     });
 
     it('addText. Should add text on selected line', () => {

@@ -2,6 +2,8 @@ export default class Line {
     private _index = 0;
     private _text = '';
 
+    // TODO: Color special SQL words
+
     get index(): number {
         return this._index;
     }
@@ -45,13 +47,6 @@ export default class Line {
         if (end > 0) {
             this.removeTextAfterIndex(end);
         }
-    }
-
-    public render(): HTMLDivElement {
-        const line = document.createElement('div');
-        line.classList.add('view-line');
-        line.innerHTML = this._text.replace(/\s/g, '&nbsp;');
-        return line;
     }
 
     public split(): string {

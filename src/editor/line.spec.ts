@@ -132,13 +132,4 @@ describe('line', () => {
             line.removeText(2);
         }).toThrow();
     });
-
-    it('render. Should have view-line class', () => {
-        line.addText('some    text  ');
-        const render = line.render();
-
-        expect(render.classList.length).toBe(1);
-        expect(render.classList.contains('view-line')).toBeTruthy();
-        expect(render.innerHTML).toBe('some&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;&nbsp;');
-    });
 });
