@@ -21,13 +21,13 @@ describe('lines', () => {
     });
 
     it('count. Should have a line when created', () => {
-        expect(lines.count()).toBe(1);
+        expect(lines.count).toBe(1);
     });
 
     it('count. Should have two lines after adding a line', () => {
         lines.add(new Line());
 
-        expect(lines.count()).toBe(2);
+        expect(lines.count).toBe(2);
     });
 
     it('add. Text after current position should be moved to next line', () => {
@@ -51,8 +51,8 @@ describe('lines', () => {
         lines.add(new Line());
         lines.remove();
 
-        expect(lines.count()).toBe(1);
-        expect(lines.selectedLineIndex()).toBe(0);
+        expect(lines.count).toBe(1);
+        expect(lines.index).toBe(0);
     });
 
     it('remove. Should remove the current line and select the previous one', () => {
@@ -63,19 +63,19 @@ describe('lines', () => {
         lines.selectPreviousLine();
         lines.remove();
 
-        expect(lines.count()).toBe(3);
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.count).toBe(3);
+        expect(lines.index).toBe(1);
         expect(lines.selectedLine().text).toBe('sample text');
     });
 
     it('selectedLineIndex. Should be 0 when created', () => {
-        expect(lines.selectedLineIndex()).toBe(0);
+        expect(lines.index).toBe(0);
     });
 
     it('selectedLineIndex. Should be the last line added', () => {
         lines.add(new Line());
 
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.index).toBe(1);
     });
 
     it('selectPreviousLine. Should select the previous line', () => {
@@ -85,14 +85,14 @@ describe('lines', () => {
 
         lines.selectPreviousLine();
 
-        expect(lines.selectedLineIndex()).toBe(2);
+        expect(lines.index).toBe(2);
     });
 
     it('selectedPreviousLine. Should not be less than 0', () => {
         lines.selectPreviousLine();
         lines.selectPreviousLine();
 
-        expect(lines.selectedLineIndex()).toBe(0);
+        expect(lines.index).toBe(0);
     });
 
     it('selectedPreviousLine. If on first line select position 0', () => {
@@ -120,7 +120,7 @@ describe('lines', () => {
         lines.selectPreviousLine();
         lines.selectNextLine();
 
-        expect(lines.selectedLineIndex()).toBe(2);
+        expect(lines.index).toBe(2);
     });
 
     it('selectNextLine. Should select the first character on next line', () => {
@@ -138,7 +138,7 @@ describe('lines', () => {
 
         lines.selectNextLine();
 
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.index).toBe(1);
     });
 
     it('selectNextLine. If on last line select the last position', () => {
@@ -163,7 +163,7 @@ describe('lines', () => {
         addNewLine('sample text');
         lines.selectPreviousChar();
 
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.index).toBe(1);
         expect(lines.selectedLine().index).toBe(10);
     });
 
@@ -173,7 +173,7 @@ describe('lines', () => {
 
         lines.selectPreviousChar();
 
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.index).toBe(1);
         expect(lines.selectedLine().index).toBe(11);
     });
 
@@ -182,7 +182,7 @@ describe('lines', () => {
         lines.selectPreviousChar();
         lines.selectNextChar();
 
-        expect(lines.selectedLineIndex()).toBe(1);
+        expect(lines.index).toBe(1);
         expect(lines.selectedLine().index).toBe(11);
     });
 
@@ -193,7 +193,7 @@ describe('lines', () => {
         lines.selectPreviousChar();
         lines.selectNextChar();
 
-        expect(lines.selectedLineIndex()).toBe(2);
+        expect(lines.index).toBe(2);
         expect(lines.selectedLine().index).toBe(0);
     });
 
@@ -231,7 +231,7 @@ describe('lines', () => {
 
     it('removeChar. Should remove the character in current possition', () => {
         lines.addText('some sample text');
-        lines.removeChar();
+        lines.removeText();
 
         expect(lines.selectedLine().text).toBe('some sample tex');
     });
@@ -239,17 +239,17 @@ describe('lines', () => {
     it('removeChar. Should not remove if in position 0 of the first line', () => {
         addNewLine('some text');
         lines.selectPreviousLine();
-        lines.removeChar();
+        lines.removeText();
 
-        expect(lines.count()).toBe(2);
+        expect(lines.count).toBe(2);
         expect(lines.selectedLine().text).toBe('');
     });
 
     it('removeChar. Should remove the line if char is at the first possition', () => {
         lines.add(new Line());
-        lines.removeChar();
+        lines.removeText();
 
-        expect(lines.count()).toBe(1);
+        expect(lines.count).toBe(1);
     });
 
     it('removeChar. Should move text on current line to the previous line if at first possition', () => {
@@ -257,9 +257,9 @@ describe('lines', () => {
         addNewLine('Some text');
         lines.selectedLine().index = 0;
 
-        lines.removeChar();
+        lines.removeText();
 
-        expect(lines.count()).toBe(2);
+        expect(lines.count).toBe(2);
         expect(lines.selectedLine().text).toBe('text + Some text');
         expect(lines.selectedLine().index).toBe(7);
     });

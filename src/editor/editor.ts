@@ -33,7 +33,7 @@ function logKey(e: KeyboardEvent): void {
         lines.add(new Line());
     }
     if (e.keyCode === 8) {
-        lines.removeChar();
+        lines.removeText();
     }
     if (e.keyCode === 37) {
         lines.selectPreviousChar();
@@ -49,7 +49,7 @@ function logKey(e: KeyboardEvent): void {
     }
 
     timeSinceLastChange = new Date();
-    cursor.setPosition(lines.selectedLine().index, lines.selectedLineIndex());
+    cursor.setPosition(lines.selectedLine().index, lines.index);
     renderLines();
 }
 

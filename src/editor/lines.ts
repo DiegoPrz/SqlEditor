@@ -4,6 +4,17 @@ export default class Lines {
     private _index = 0;
     private _lines: Line[] = [];
 
+    // TODO: Rename methods and reorder code
+    // TODO: Allow remove char to remove char after line index
+
+    get count(): number {
+        return this._lines.length;
+    }
+
+    get index(): number {
+        return this._index;
+    }
+
     public constructor(line: Line) {
         this._lines.push(line);
     }
@@ -21,16 +32,12 @@ export default class Lines {
         this.selectedLine().addText(text);
     }
 
-    public count(): number {
-        return this._lines.length;
-    }
-
     public remove(): void {
         this._lines.splice(this._index, 1);
         this.selectPreviousLine();
     }
 
-    public removeChar(): void {
+    public removeText(): void {
         if (this.selectedLine().index === 0) {
             if (this._index === 0) {
                 return;
@@ -59,10 +66,6 @@ export default class Lines {
 
     public selectedLine(): Line {
         return this._lines[this._index];
-    }
-
-    public selectedLineIndex(): number {
-        return this._index;
     }
 
     public selectNextChar(): void {
