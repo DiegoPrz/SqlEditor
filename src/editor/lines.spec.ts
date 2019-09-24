@@ -303,4 +303,35 @@ describe('lines', () => {
         expect(lines.selectedLine().text).toBe('text + Some text');
         expect(lines.selectedLine().index).toBe(7);
     });
+
+    it('select. Should select right position on the indicated line', () => {
+        addNewLine('Some sample text');
+        addNewLine('Another sample text');
+        lines.select(1, 7);
+
+        expect(lines.index).toBe(1);
+        expect(lines.selectedLine().index).toBe(7);
+    });
+
+    it('select. Should not select line out of range', () => {
+        expect(() => {
+            lines.select(-1, 7);
+        }).toThrow();
+
+        expect(() => {
+            lines.select(1, 7);
+        }).toThrow();
+    });
+
+    it('select. Should not select position out of range', () => {
+        addNewLine('Some sample line');
+
+        expect(() => {
+            lines.select(0, -1);
+        }).toThrow();
+
+        expect(() => {
+            lines.select(1, 17);
+        }).toThrow();
+    });
 });

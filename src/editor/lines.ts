@@ -68,6 +68,20 @@ export default class Lines {
         }
     }
 
+    public select(line: number, index: number) {
+        if (line < 0 || line >= this.count) {
+            throw new Error('selected line is out of range');
+        }
+
+        this._index = line;
+
+        if (index < 0 || index > this.selectedLine().length) {
+            throw new Error('selected position is out of range');
+        }
+
+        this.selectedLine().index = index;
+    }
+
     public selectedLine(): Line {
         return this._lines[this._index];
     }
