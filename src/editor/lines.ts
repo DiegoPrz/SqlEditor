@@ -4,7 +4,6 @@ export default class Lines {
     private _index = 0;
     private _lines: Line[] = [];
 
-    // TODO: Rename methods and reorder code
     // TODO: Allow remove char to remove char after line index
 
     get count(): number {
@@ -21,15 +20,14 @@ export default class Lines {
 
     public add(line: Line) {
         const text = this.selectedLine().split();
+        line.addText(text, false);
 
-        line.addText(text);
-        line.index = 0;
         this._lines.push(line);
-        this._index++;
+        this.selectNextLine();
     }
 
-    public addText(text: string) {
-        this.selectedLine().addText(text);
+    public addText(text: string, updateIndex: boolean = true) {
+        this.selectedLine().addText(text, updateIndex);
     }
 
     public remove(): void {
@@ -44,9 +42,7 @@ export default class Lines {
             }
             const text = this.selectedLine().text;
             this.remove();
-            const position = this.selectedLine().index;
-            this.addText(text);
-            this.selectedLine().index = position;
+            this.addText(text, false);
         } else {
             this.selectedLine().removeText();
         }
