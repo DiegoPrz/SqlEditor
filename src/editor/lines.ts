@@ -35,16 +35,24 @@ export default class Lines {
         this.selectPreviousLine();
     }
 
-    public removeText(): void {
-        if (this.selectedLine().index === 0) {
+    public removeText(end: number = -1): void {
+        const endIndex = this.selectedLine().index + end;
+
+        if (endIndex < 0) {
             if (this._index === 0) {
                 return;
             }
             const text = this.selectedLine().text;
             this.remove();
             this.addText(text, false);
+        } else if (endIndex > this.selectedLine().length) {
+            if (this._index >= this.count - 1) {
+                return;
+            }
+            this.selectNextChar();
+            this.removeText(-1);
         } else {
-            this.selectedLine().removeText();
+            this.selectedLine().removeText(end);
         }
     }
 
