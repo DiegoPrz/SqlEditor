@@ -4,8 +4,6 @@ export default class Lines {
     private _index = 0;
     private _lines: Line[] = [];
 
-    // TODO: Allow remove char to remove char after line index
-
     get count(): number {
         return this._lines.length;
     }
@@ -39,18 +37,9 @@ export default class Lines {
         const endIndex = this.selectedLine().index + end;
 
         if (endIndex < 0) {
-            if (this._index === 0) {
-                return;
-            }
-            const text = this.selectedLine().text;
-            this.remove();
-            this.addText(text, false);
+            this.joinLines(this.index - 1, this.index);
         } else if (endIndex > this.selectedLine().length) {
-            if (this._index >= this.count - 1) {
-                return;
-            }
-            this.selectNextChar();
-            this.removeText(-1);
+            this.joinLines(this.index, this.index + 1);
         } else {
             this.selectedLine().removeText(end);
         }
@@ -120,6 +109,17 @@ export default class Lines {
 
         this._index--;
         this.selectedLine().index = this.selectedLine().length;
+    }
+
+    private joinLines(firstLine: number, lastLine: number) {
+        if (firstLine < 0 || lastLine >= this.count) {
+            return;
+        }
+
+        this.select(lastLine, 0);
+        const text = this.selectedLine().text;
+        this.remove();
+        this.addText(text, false);
     }
 
     private lineNumber(line: number, currentLine: boolean): HTMLElement {

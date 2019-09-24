@@ -47,6 +47,9 @@ function logKey(e: KeyboardEvent): void {
     if (e.keyCode === 40) {
         lines.selectNextLine();
     }
+    if (e.keyCode === 46) {
+        lines.removeText(1);
+    }
 
     timeSinceLastChange = new Date();
     cursor.setPosition(lines.selectedLine().index, lines.index);
