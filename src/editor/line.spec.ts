@@ -27,6 +27,14 @@ describe('line', () => {
         expect(line.index).toBe(26);
     });
 
+    it('addText. Index can be kept if indicated', () => {
+        line.addText('Some text');
+        line.addText('. After the other', false);
+
+        expect(line.text).toBe('Some text. After the other');
+        expect(line.index).toBe(9);
+    });
+
     it('index. should be setted correctly', () => {
         line.addText('some text');
         line.index = 3;

@@ -26,13 +26,15 @@ export default class Line {
         return this._text;
     }
 
-    public addText(text: string): void {
+    public addText(text: string, updateIndex: boolean = true): void {
         this._text =
             this.textBeforeIndex() +
             text +
             this.textAfterIndex();
 
-        this.index += text.length;
+        if (updateIndex) {
+            this.index += text.length;
+        }
     }
 
     public removeText(end: number = -1): void {
