@@ -1,21 +1,30 @@
 export default class Cursor {
-    private _dom: HTMLElement;
+    private _visible: boolean = true;
+    private _x: number = 0;
+    private _y: number = 0;
 
-    constructor(dom: HTMLElement) {
-        this._dom = dom;
-        this.setVisible();
+    get visible(): boolean {
+        return this._visible;
+    }
+
+    get x(): number {
+        return this._x;
+    }
+
+    get y(): number {
+        return this._y;
     }
 
     public setPosition(x: number, y: number): void {
-        this._dom.style.top  = `${y * 19}px`;
-        this._dom.style.left = `${x * 7.7}px`;
+        this._x = x;
+        this._y = y;
     }
 
     public setVisible(): void {
-        this._dom.style.visibility = 'inherit';
+        this._visible = true;
     }
 
     public updateVisibility(): void {
-        this._dom.style.visibility = this._dom.style.visibility === 'inherit' ? 'hidden' : 'inherit';
+        this._visible = !this._visible;
     }
 }

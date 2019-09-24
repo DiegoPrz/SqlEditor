@@ -3,15 +3,16 @@ import Line from './line';
 import Lines from './lines';
 import RenderHtml from './renderHtml';
 
-const cursor = new Cursor(document.getElementById('cursor'));
+const cursor = new Cursor();
 const lines = new Lines(new Line());
-const renderHtml = new RenderHtml(lines);
+const renderHtml = new RenderHtml(lines, cursor);
 let timeSinceLastChange = new Date();
 
 window.setInterval(() => {
     const currentTime = new Date();
     if (currentTime.getTime() - timeSinceLastChange.getTime() > 500) {
         cursor.updateVisibility();
+        renderHtml.renderCursor();
     }
 }, 500);
 
