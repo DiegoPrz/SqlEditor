@@ -7,11 +7,13 @@ export default class RenderHtml {
     private _htmlCursor = document.getElementById('cursor');
     private _htmlEditor = document.getElementById('editor');
     private _htmlNumbers = document.getElementById('line-numbers');
+    private _keywords: string;
     private _lines: Lines;
 
-    constructor(lines: Lines, cursor: Cursor) {
+    constructor(lines: Lines, cursor: Cursor, keywords: string[]) {
         this._lines = lines;
         this._cursor = cursor;
+        this._keywords = keywords.join('|');
 
         this.render();
     }
@@ -32,7 +34,13 @@ export default class RenderHtml {
     private renderLine(line: Line): void {
         const HTMLLine = document.createElement('div');
         HTMLLine.classList.add('view-line');
-        HTMLLine.innerHTML = line.text.replace(/\s/g, '&nbsp;');
+
+        const regex = new RegExp(`(^|\\;)(${this._keywords})(\\&|$)`, 'gi');
+
+        let text = line.text.replace(/\s/g, '&nbsp;');
+        text = text.replace(regex, '$1<span class="keyword">$2</span>$3');
+
+        HTMLLine.innerHTML = text;
 
         this._htmlEditor.append(HTMLLine);
     }

@@ -3,9 +3,11 @@ import Line from './line';
 import Lines from './lines';
 import RenderHtml from './renderHtml';
 
+const sqlKeywords = ['select', 'from'];
+
 const cursor = new Cursor();
 const lines = new Lines(new Line());
-const renderHtml = new RenderHtml(lines, cursor);
+const renderHtml = new RenderHtml(lines, cursor, sqlKeywords);
 let timeSinceLastChange = new Date();
 
 window.setInterval(() => {

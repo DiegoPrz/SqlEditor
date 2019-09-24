@@ -2,8 +2,6 @@ export default class Line {
     private _index = 0;
     private _text = '';
 
-    // TODO: Color special SQL words
-
     get index(): number {
         return this._index;
     }

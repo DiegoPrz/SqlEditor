@@ -43,3 +43,9 @@
     width: 1.6px;
     position: absolute;
 }
+
+.keyword {
+    color: teal;
+    font-weight: bold;
+    font-style: italic;
+}
